@@ -78,7 +78,7 @@ def stdev(values, ddof=0):
         ddof: delta degrees of freedom (0 for population, 1 for sample)
 
     Raises:
-        ValueError: if values is empty or n - ddof <= 0
+        ValueError: if values is empty or ddof >= n
         TypeError: if any element is not a number
     """
     if not isinstance(values, (list, tuple)):
@@ -88,7 +88,7 @@ def stdev(values, ddof=0):
     n = len(values)
     if n == 0:
         raise ValueError("stdev() of empty data")
-    if n - ddof <= 0:
+    if ddof >= n:
         raise ValueError("ddof >= n results in division by zero")
 
     for v in values:
@@ -140,7 +140,7 @@ def binomial_cdf(k, n, p):
         else:
             return 0.0
     if p == 1.0:
-        if k >= n:
+        if k == n:
             return 1.0
         else:
             return 0.0
